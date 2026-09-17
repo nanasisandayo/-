@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <title>簿記カードゲーム α</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div><div class="eyebrow">BOKI CARD GAME</div><h1>簿記カードゲーム <span>α</span></h1></div>
+      <button id="resetBtn" class="ghost">リセット</button>
+    </header>
+
+    <section class="panel status-panel">
+      <div class="stat"><span>ターン</span><strong id="turn">1</strong></div><div class="player-tabs"><button class="player-tab active" data-player="0">P1</button><button class="player-tab" data-player="1">P2</button></div>
+      <div class="stat dice-stat"><span>手番</span><strong id="playerName">プレイヤー1</strong></div><div class="stat dice-stat"><span>今回の金額</span><strong id="amount">まだ振っていません</strong></div>
+      <button id="rollBtn" class="primary">サイコロを振る</button>
+    </section>
+
+    <section id="dicePanel" class="dice-area hidden" aria-live="polite">
+      <div class="die"><small>1個目</small><strong id="d1">-</strong><span>1〜10</span></div>
+      <div class="multiply">×</div>
+      <div class="die"><small>2個目</small><strong id="d2">-</strong><span>1〜4</span></div>
+      <div class="equals">＝</div>
+      <div class="amount-badge"><small>取引金額</small><strong id="amountBig">-</strong></div>
+    </section>
+
+    <section class="panel hint-panel">
+      <strong>今回のルール</strong>
+      <p>出た金額を使って、あなた自身で「何をするか」を決めます。ゲームは取引内容を指定しません。</p>
+    </section>
+
+    <section class="journal-grid">
+      <div class="panel side-panel" data-side="debit">
+        <div class="side-title debit-title"><span>借方</span><span id="debitTotal">0円</span></div>
+        <div id="debitRows" class="rows dropzone" data-side="debit"><div class="empty">ここへ勘定科目を置く</div></div>
+        <button class="add-row" data-side="debit">＋ 借方に追加</button>
+      </div>
+      <div class="panel side-panel" data-side="credit">
+        <div class="side-title credit-title"><span>貸方</span><span id="creditTotal">0円</span></div>
+        <div id="creditRows" class="rows dropzone" data-side="credit"><div class="empty">ここへ勘定科目を置く</div></div>
+        <button class="add-row" data-side="credit">＋ 貸方に追加</button>
+      </div>
+    </section>
+
+    <div class="side-switch"><button class="side-choice active" data-side="debit">タップ追加先：借方</button><button class="side-choice" data-side="credit">貸方</button></div>
+    <section class="panel accounts-panel">
+      <div class="accounts-head"><div><strong>勘定科目</strong><small>タップで追加 / 長押し・ドラッグにも対応</small></div><button id="filterBtn" class="ghost small">分類</button></div>
+      <div id="filters" class="filters hidden"></div>
+      <div id="accounts" class="account-list"></div>
+    </section>
+
+    <button id="postBtn" class="confirm" disabled>仕訳を確定する</button>
+
+    <section class="panel ledger-panel">
+      <div class="panel-title"><strong>現在の会社</strong><span id="cashState">現金 100,000円</span></div>
+      <div class="summary-grid">
+        <div><span>純利益</span><strong id="netIncome">0円</strong></div>
+        <div><span>純資産</span><strong id="netAssets">100,000円</strong></div>
+        <div><span>収益</span><strong id="revenue">0円</strong></div>
+        <div><span>費用</span><strong id="expense">0円</strong></div>
+        <div><span>暫定スコア</span><strong id="score">100,000</strong></div>
+      </div>
+    </section>
+
+    <button id="finishBtn" class="finish">決算して勝敗を見る</button><section id="result" class="panel result hidden"><div class="panel-title"><strong>決算結果</strong></div><div id="resultBody" class="result-grid"></div></section><section id="message" class="message" aria-live="polite"></section>
+    <section class="panel history-panel"><div class="panel-title"><strong>仕訳履歴</strong><span id="historyCount">0件</span></div><div id="history" class="history"></div></section>
+  </main>
+  <script type="module" src="app.mjs"></script>
+<script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");</script>
+</body>
+</html>

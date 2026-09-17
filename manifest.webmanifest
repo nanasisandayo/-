@@ -1,0 +1,10 @@
+{
+  "name": "簿記カードゲーム α",
+  "short_name": "簿記カードゲーム",
+  "lang": "ja",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#111827",
+  "description": "自分で取引を考えて仕訳する簿記学習カードゲーム"
+}
